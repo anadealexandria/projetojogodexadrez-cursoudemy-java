@@ -1,10 +1,11 @@
-import CamadaDeTabuleiro.Tabuleiro;
+import CamadaDeXadrez.PartidaDeXadrez;
 
 public class Execucoes {
 
 	public static void main(String[] args) {
 
-		Tabuleiro tabuleiro = new Tabuleiro(8, 8);
+		PartidaDeXadrez partidaDeXadrez = new PartidaDeXadrez();
+		UseInterface.imprimirTabuleiro(partidaDeXadrez.getPeca());
 
 	}
 

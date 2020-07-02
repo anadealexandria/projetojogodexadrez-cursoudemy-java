@@ -12,9 +12,13 @@ public class Tabuleiro {
 		pecas = new Peca[linhas][colunas];
 	}
 	
-//	public Peca peca(int linhas, int colunas) {
-//		return
-//	}
+	public Peca peca(int linhas, int colunas) {
+		return pecas[linhas][colunas];
+	}
+	
+	public Peca peca(Posicao posicao) {
+		return pecas [posicao.getLinha()][posicao.getColuna()];
+	}
 
 	public int getLinhas() {
 		return linhas;
