@@ -1,6 +1,5 @@
 package CamadaDeXadrez;
 
-import CamadaDeTabuleiro.Posicao;
 import CamadaDeTabuleiro.Tabuleiro;
 import Pecas.Rei;
 import Pecas.Torre;
