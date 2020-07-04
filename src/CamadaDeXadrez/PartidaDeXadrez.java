@@ -28,6 +28,6 @@ public class PartidaDeXadrez {
 	
 	private void inicio() {
 		tabuleiro.lugarPeca(new Torre (tabuleiro, Cor.PRETO), new Posicao(2, 1));
-		tabuleiro.lugarPeca(new Rei (tabuleiro, Cor.BRANCO), new Posicao(3, 4));
+		tabuleiro.lugarPeca(new Rei (tabuleiro, Cor.BRANCO), new Posicao(5, 2));
 	}
 }
