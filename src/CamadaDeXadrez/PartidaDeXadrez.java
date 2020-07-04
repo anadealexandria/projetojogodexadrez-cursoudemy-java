@@ -26,8 +26,13 @@ public class PartidaDeXadrez {
 		return matriz;
 	}
 	
+	private void pecaNoLugarNovo(char coluna, int linha, PecaDeXadrez peca) {
+		tabuleiro.lugarPeca(peca, new PosicaoXadrez(coluna, linha).transformarPosicaoComum());
+		
+	}
+	
 	private void inicio() {
-		tabuleiro.lugarPeca(new Torre (tabuleiro, Cor.PRETO), new Posicao(2, 1));
-		tabuleiro.lugarPeca(new Rei (tabuleiro, Cor.BRANCO), new Posicao(5, 2));
+		pecaNoLugarNovo('b', 6, new Torre (tabuleiro, Cor.PRETO));
+		pecaNoLugarNovo('e', 8, new Rei (tabuleiro, Cor.BRANCO));
 	}
 }
