@@ -1,6 +1,7 @@
+package Execucoes;
 import CamadaDeXadrez.PartidaDeXadrez;
 
-public class Execucoes {
+public class Principal {
 
 	public static void main(String[] args) {
 

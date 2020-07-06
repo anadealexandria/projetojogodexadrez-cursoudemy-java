@@ -31,7 +31,18 @@ public class PartidaDeXadrez {
 	}
 	
 	private void inicio() {
-		pecaNoLugarNovo('b', 6, new Torre (tabuleiro, Cor.PRETO));
-		pecaNoLugarNovo('e', 8, new Rei (tabuleiro, Cor.BRANCO));
+		pecaNoLugarNovo('c', 1, new Torre(tabuleiro, Cor.BRANCO));
+        pecaNoLugarNovo('c', 2, new Torre(tabuleiro, Cor.BRANCO));
+        pecaNoLugarNovo('d', 2, new Torre(tabuleiro, Cor.BRANCO));
+        pecaNoLugarNovo('e', 2, new Torre(tabuleiro, Cor.BRANCO));
+        pecaNoLugarNovo('e', 1, new Torre(tabuleiro, Cor.BRANCO));
+        pecaNoLugarNovo('d', 1, new Rei(tabuleiro, Cor.BRANCO));
+
+        pecaNoLugarNovo('c', 7, new Torre(tabuleiro, Cor.PRETO));
+        pecaNoLugarNovo('c', 8, new Torre(tabuleiro, Cor.PRETO));
+        pecaNoLugarNovo('d', 7, new Torre(tabuleiro, Cor.PRETO));
+        pecaNoLugarNovo('e', 7, new Torre(tabuleiro, Cor.PRETO));
+        pecaNoLugarNovo('e', 8, new Torre(tabuleiro, Cor.PRETO));
+        pecaNoLugarNovo('d', 8, new Rei(tabuleiro, Cor.PRETO));
 	}
 }
