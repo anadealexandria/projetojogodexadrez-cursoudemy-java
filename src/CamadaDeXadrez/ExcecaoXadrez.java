@@ -1,6 +1,8 @@
 package CamadaDeXadrez;
 
-public class ExcecaoXadrez extends RuntimeException{
+import CamadaDeTabuleiro.ExcecaoTabuleiro;
+
+public class ExcecaoXadrez extends ExcecaoTabuleiro{
 	private static final long serialVersionUID = 1L;
 
 	public ExcecaoXadrez(String msg) {
