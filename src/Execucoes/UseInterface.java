@@ -28,6 +28,13 @@ public class UseInterface {
 	public static final String ANSI_CYAN_BACKGROUND = "\u001B[46m";
 	public static final String ANSI_WHITE_BACKGROUND = "\u001B[47m";
 	
+	
+
+	public static void limparTela() {
+	System.out.print("\033[H\033[2J");
+	System.out.flush();
+	}
+	
 	public static PosicaoXadrez lerPosicaoXadrez(Scanner entrada) {
 		try {
 		String sc = entrada.nextLine();
@@ -37,24 +44,40 @@ public class UseInterface {
 		
 	}
 		catch(RuntimeException e) {
-			throw new InputMismatchException("Erro ao digitas a posição. Valores válidos de 1 a 8.");
+			throw new InputMismatchException("Erro ao digitar a posição. Valores válidos de 1 a 8.");
 		}
 	}
 	public static void imprimirTabuleiro(PecaDeXadrez[][] pecas) {
 		for (int i = 0; i < pecas.length; i++) {
 			System.out.print((8 - i) + " ");
 			for (int j = 0; j < pecas.length; j++) {
-				imprimirPeca(pecas[i][j]);
+				imprimirPeca(pecas[i][j], false);
 			}
 			System.out.println();
 		}
 		System.out.println("  a b c d e f g h");
 	}
+	
+	public static void imprimirTabuleiro(PecaDeXadrez[][] pecas, boolean[][] movimentosPossiveis) {
+		for (int i = 0; i < pecas.length; i++) {
+			System.out.print((8 - i) + " ");
+			for (int j = 0; j < pecas.length; j++) {
+				imprimirPeca(pecas[i][j], movimentosPossiveis[i][j]);
+			}
+			System.out.println();
+		}
+		System.out.println("  a b c d e f g h");
+	}
+	
 
-	private static void imprimirPeca(PecaDeXadrez peca) {
+	private static void imprimirPeca(PecaDeXadrez peca, boolean background) {
+		if (background) {
+			System.out.print(ANSI_BLUE_BACKGROUND);
+		}
 		if (peca == null) {
-			System.out.print("-");
-		} else {
+			System.out.print("-" + ANSI_RESET);
+		} 
+		else {
 			if (peca.getCor() == Cor.BRANCO) {
 				System.out.print(ANSI_WHITE + peca + ANSI_RESET);
 			} else {
