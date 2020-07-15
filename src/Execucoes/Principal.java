@@ -19,7 +19,7 @@ public class Principal {
 			try {
 			
 			UseInterface.limparTela();
-			UseInterface.imprimirTabuleiro(partidaDeXadrez.getPeca());
+			UseInterface.imprimirPartida(partidaDeXadrez);
 			System.out.println();
 			System.out.print("Origem: ");
 			PosicaoXadrez origem = UseInterface.lerPosicaoXadrez(entrada);

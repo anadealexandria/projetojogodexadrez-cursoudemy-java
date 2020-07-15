@@ -1,8 +1,10 @@
 package Execucoes;
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import CamadaDeXadrez.Cor;
+import CamadaDeXadrez.PartidaDeXadrez;
 import CamadaDeXadrez.PecaDeXadrez;
 import CamadaDeXadrez.PosicaoXadrez;
 
@@ -27,26 +29,31 @@ public class UseInterface {
 	public static final String ANSI_PURPLE_BACKGROUND = "\u001B[45m";
 	public static final String ANSI_CYAN_BACKGROUND = "\u001B[46m";
 	public static final String ANSI_WHITE_BACKGROUND = "\u001B[47m";
-	
-	
 
 	public static void limparTela() {
-	System.out.print("\033[H\033[2J");
-	System.out.flush();
+		System.out.print("\033[H\033[2J");
+		System.out.flush();
 	}
-	
+
 	public static PosicaoXadrez lerPosicaoXadrez(Scanner entrada) {
 		try {
-		String sc = entrada.nextLine();
-		char coluna = sc.charAt(0);
-		int linha = Integer.parseInt(sc.substring(1));
-		return new PosicaoXadrez(coluna, linha);
-		
-	}
-		catch(RuntimeException e) {
+			String sc = entrada.nextLine();
+			char coluna = sc.charAt(0);
+			int linha = Integer.parseInt(sc.substring(1));
+			return new PosicaoXadrez(coluna, linha);
+
+		} catch (RuntimeException e) {
 			throw new InputMismatchException("Erro ao digitar a posição. Valores válidos de 1 a 8.");
 		}
 	}
+
+	public static void imprimirPartida(PartidaDeXadrez partidaDeXadrez) {
+		imprimirTabuleiro(partidaDeXadrez.getPeca());
+		System.out.println();
+		System.out.println("Turno: " + partidaDeXadrez.getTurno());
+		System.out.println("Esperando jogador: " + partidaDeXadrez.getJogadorAtual());
+	}
+
 	public static void imprimirTabuleiro(PecaDeXadrez[][] pecas) {
 		for (int i = 0; i < pecas.length; i++) {
 			System.out.print((8 - i) + " ");
@@ -57,7 +64,7 @@ public class UseInterface {
 		}
 		System.out.println("  a b c d e f g h");
 	}
-	
+
 	public static void imprimirTabuleiro(PecaDeXadrez[][] pecas, boolean[][] movimentosPossiveis) {
 		for (int i = 0; i < pecas.length; i++) {
 			System.out.print((8 - i) + " ");
@@ -68,7 +75,6 @@ public class UseInterface {
 		}
 		System.out.println("  a b c d e f g h");
 	}
-	
 
 	private static void imprimirPeca(PecaDeXadrez peca, boolean background) {
 		if (background) {
@@ -76,8 +82,7 @@ public class UseInterface {
 		}
 		if (peca == null) {
 			System.out.print("-" + ANSI_RESET);
-		} 
-		else {
+		} else {
 			if (peca.getCor() == Cor.BRANCO) {
 				System.out.print(ANSI_WHITE + peca + ANSI_RESET);
 			} else {
