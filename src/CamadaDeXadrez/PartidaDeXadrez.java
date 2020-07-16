@@ -1,5 +1,8 @@
 package CamadaDeXadrez;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import CamadaDeTabuleiro.Peca;
 import CamadaDeTabuleiro.Posicao;
 import CamadaDeTabuleiro.Tabuleiro;
@@ -11,7 +14,8 @@ public class PartidaDeXadrez {
 	private Tabuleiro tabuleiro;
 	private int turno;
 	private Cor jogadorAtual;
-	
+	private List<Peca> pecasNoTabuleiro = new ArrayList<>();
+	private List<Peca> pecasCapturadas = new ArrayList<>();
 		
 	public PartidaDeXadrez() {
 		tabuleiro = new Tabuleiro(8, 8);
@@ -62,9 +66,14 @@ public class PartidaDeXadrez {
 	
 	private Peca makeMove(Posicao origem, Posicao destino) {
 		Peca p = tabuleiro.removerPeca(origem);
-		Peca capturarPeca = tabuleiro.removerPeca(destino);
+		Peca pecaCapturada = tabuleiro.removerPeca(destino);
 		tabuleiro.lugarPeca(p, destino);
-		return capturarPeca;
+		
+		if(pecaCapturada != null) {
+			pecasNoTabuleiro.remove(pecaCapturada);
+			pecasCapturadas.add(pecaCapturada);
+		}
+		return pecaCapturada;
 		
 	}
 	
@@ -81,7 +90,7 @@ public class PartidaDeXadrez {
 	}
 	private void pecaNoLugarNovo(char coluna, int linha, PecaDeXadrez peca) {
 		tabuleiro.lugarPeca(peca, new PosicaoXadrez(coluna, linha).transformarPosicaoComum());
-		
+		pecasNoTabuleiro.add(peca);
 	}
 	
 	private void inicio() {
