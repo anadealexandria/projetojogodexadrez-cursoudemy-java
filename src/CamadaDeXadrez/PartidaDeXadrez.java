@@ -79,13 +79,13 @@ public class PartidaDeXadrez {
 	
 	private void validarPosicaoDeOrigem(Posicao posicao) {
 		if(!tabuleiro.existeUmaPeca(posicao)) {
-			throw new ExcecaoXadrez("Não existe peça na posição de origem!");
+			throw new ExcecaoXadrez("Nao existe peca na posicao de origem!");
 		}
 		if(jogadorAtual != ((PecaDeXadrez)tabuleiro.peca(posicao)).getCor()) {
 			throw new ExcecaoXadrez("Essa peca nao e sua!");
 		}
 		if(!tabuleiro.peca(posicao).existePeloMenosUmMovimentoPossivel()) {
-			throw new ExcecaoXadrez("Não existe movimento para a peça escolhida!");
+			throw new ExcecaoXadrez("Nao existe movimento para a peça escolhida!");
 		}
 	}
 	private void pecaNoLugarNovo(char coluna, int linha, PecaDeXadrez peca) {
