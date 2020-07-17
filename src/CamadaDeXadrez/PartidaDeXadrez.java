@@ -34,6 +34,10 @@ public class PartidaDeXadrez {
 		return jogadorAtual;
 	}
 	
+	public boolean getCheck() {
+		return check;
+	}
+	
 	public PecaDeXadrez[][] getPeca(){
 		PecaDeXadrez[][] matriz = new PecaDeXadrez[tabuleiro.getLinhas()][tabuleiro.getColunas()];
 		for(int i=0; i<tabuleiro.getLinhas(); i++) {
@@ -50,20 +54,6 @@ public class PartidaDeXadrez {
 		return tabuleiro.peca(posicao).movimentoPossivel();
 	}
 	
-	public PecaDeXadrez executarMovimento(PosicaoXadrez posicaoDeOrigem, PosicaoXadrez posicaoDeDestino) {
-		Posicao origem = posicaoDeOrigem.transformarPosicaoComum();
-		Posicao destino = posicaoDeDestino.transformarPosicaoComum();
-		validarPosicaoDeOrigem(origem);
-		validarPosicaoDeDestino(origem, destino);
-		Peca capturarPeca = makeMove(origem, destino);
-		
-		if(testarCheck(jogadorAtual)) {
-			undoMove(origem, destino, pecaCapturada);
-			throw new ExcecaoXadrez("Voce nao pode estar em check!");
-		}
-		proximoTurno();
-		return (PecaDeXadrez) capturarPeca;
-	}
 	
 	public void validarPosicaoDeDestino(Posicao origem, Posicao destino) {
 		if(!tabuleiro.peca(origem).possivelMovimento(destino)) {
@@ -83,13 +73,29 @@ public class PartidaDeXadrez {
 		return pecaCapturada;
 		
 	}
+	public PecaDeXadrez executarMovimento(PosicaoXadrez posicaoDeOrigem, PosicaoXadrez posicaoDeDestino) {
+		Posicao origem = posicaoDeOrigem.transformarPosicaoComum();
+		Posicao destino = posicaoDeDestino.transformarPosicaoComum();
+		validarPosicaoDeOrigem(origem);
+		validarPosicaoDeDestino(origem, destino);
+		Peca capturarPeca = makeMove(origem, destino);
+		
+		if(testarCheck(jogadorAtual)) {
+			undoMove(origem, destino, capturarPeca);
+			throw new ExcecaoXadrez("Voce nao pode estar em check!");
+		}
+		
+		check = (testarCheck(oponente(jogadorAtual))) ? true : false;
+		proximoTurno();
+		return (PecaDeXadrez) capturarPeca;
+	}
 	
 	private void undoMove(Posicao origem, Posicao destino, Peca pecaCapturada) {
 		Peca p = tabuleiro.removerPeca(destino);		
 		tabuleiro.lugarPeca(p, origem);
 		
 		if(pecaCapturada != null) {
-			tabuleiro.lugarPeca(p, origem);
+			tabuleiro.lugarPeca(pecaCapturada, destino);
 			pecasCapturadas.remove(pecaCapturada);
 			pecasNoTabuleiro.add(pecaCapturada);
 		}
@@ -134,7 +140,7 @@ public class PartidaDeXadrez {
 	}
 	
 	private Cor oponente(Cor cor) {
-		return (cor == Cor.BRANCO) ? Cor.BRANCO : Cor.PRETO;
+		return (cor == Cor.BRANCO) ? Cor.PRETO: Cor.BRANCO;
 	}
 	
 	private PecaDeXadrez rei(Cor cor) {

@@ -16,7 +16,7 @@ public class PosicaoXadrez {
 
 	public PosicaoXadrez(int linha, char coluna) {
 		if (coluna < 'a' || coluna > 'h' || linha < 1 || linha > 8) {
-			throw new ExcecaoXadrez("Posição não está dentro do tabuleiro!");
+			throw new ExcecaoXadrez("Posicao nao esta dentro do tabuleiro!");
 		}
 		this.coluna = coluna;
 		this.linha = linha;
@@ -35,7 +35,7 @@ public class PosicaoXadrez {
 	}
 
 	protected static PosicaoXadrez transformarPosicaoDeXadrez(Posicao posicao) {
-		return new PosicaoXadrez((char) ('a' - posicao.getColuna()), 8 - posicao.getLinha());
+		return new PosicaoXadrez((char) ('a' + posicao.getColuna()), 8 - posicao.getLinha());
 	}
 
 	@Override

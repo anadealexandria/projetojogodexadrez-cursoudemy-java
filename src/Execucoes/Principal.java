@@ -40,6 +40,7 @@ public class Principal {
 				capturadas.add(pecaCapturada);
 			}
 			}
+			
 			catch(ExcecaoXadrez e) {
 				System.out.println(e.getMessage());
 				entrada.nextLine();
