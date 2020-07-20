@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import CamadaDeTabuleiro.Peca;
 import CamadaDeTabuleiro.Posicao;
 import CamadaDeTabuleiro.Tabuleiro;
+import Pecas.Peao;
 import Pecas.Rei;
 import Pecas.Torre;
 
@@ -131,19 +132,29 @@ public class PartidaDeXadrez {
 	}
 
 	private void inicio() {
-		pecaNoLugarNovo('h', 7, new Torre(tabuleiro, Cor.BRANCO));
-		pecaNoLugarNovo('d', 1, new Torre(tabuleiro, Cor.BRANCO));
+		pecaNoLugarNovo('a', 1, new Torre(tabuleiro, Cor.BRANCO));
 		pecaNoLugarNovo('e', 1, new Rei(tabuleiro, Cor.BRANCO));
-//        pecaNoLugarNovo('e', 2, new Torre(tabuleiro, Cor.BRANCO));
-//        pecaNoLugarNovo('e', 1, new Torre(tabuleiro, Cor.BRANCO));
-//        pecaNoLugarNovo('d', 1, new Rei(tabuleiro, Cor.BRANCO));
-
-		pecaNoLugarNovo('b', 8, new Torre(tabuleiro, Cor.PRETO));
-		pecaNoLugarNovo('a', 8, new Rei(tabuleiro, Cor.PRETO));
-//        pecaNoLugarNovo('d', 7, new Torre(tabuleiro, Cor.PRETO));
-//        pecaNoLugarNovo('e', 7, new Torre(tabuleiro, Cor.PRETO));
-//        pecaNoLugarNovo('e', 8, new Torre(tabuleiro, Cor.PRETO));
-//        pecaNoLugarNovo('d', 8, new Rei(tabuleiro, Cor.PRETO));
+		pecaNoLugarNovo('h', 1, new Torre(tabuleiro, Cor.BRANCO));
+        pecaNoLugarNovo('a', 2, new Peao(tabuleiro, Cor.BRANCO));
+        pecaNoLugarNovo('b', 2, new Peao(tabuleiro, Cor.BRANCO));
+        pecaNoLugarNovo('c', 2, new Peao(tabuleiro, Cor.BRANCO));
+        pecaNoLugarNovo('d', 2, new Peao(tabuleiro, Cor.BRANCO));
+        pecaNoLugarNovo('e', 2, new Peao(tabuleiro, Cor.BRANCO));
+        pecaNoLugarNovo('f', 2, new Peao(tabuleiro, Cor.BRANCO));
+        pecaNoLugarNovo('g', 2, new Peao(tabuleiro, Cor.BRANCO));
+        pecaNoLugarNovo('h', 2, new Peao(tabuleiro, Cor.BRANCO));
+        
+		pecaNoLugarNovo('a', 8, new Torre(tabuleiro, Cor.PRETO));
+		pecaNoLugarNovo('e', 8, new Rei(tabuleiro, Cor.PRETO));
+		pecaNoLugarNovo('h', 8, new Torre(tabuleiro, Cor.PRETO));
+		pecaNoLugarNovo('a', 7, new Peao(tabuleiro, Cor.PRETO));
+        pecaNoLugarNovo('b', 7, new Peao(tabuleiro, Cor.PRETO));
+        pecaNoLugarNovo('c', 7, new Peao(tabuleiro, Cor.PRETO));
+        pecaNoLugarNovo('d', 7, new Peao(tabuleiro, Cor.PRETO));
+        pecaNoLugarNovo('e', 7, new Peao(tabuleiro, Cor.PRETO));
+        pecaNoLugarNovo('f', 7, new Peao(tabuleiro, Cor.PRETO));
+        pecaNoLugarNovo('g', 7, new Peao(tabuleiro, Cor.PRETO));
+        pecaNoLugarNovo('h', 7, new Peao(tabuleiro, Cor.PRETO));
 	}
 
 	private void proximoTurno() {
