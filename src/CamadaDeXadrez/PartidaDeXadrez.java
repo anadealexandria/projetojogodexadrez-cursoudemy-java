@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import CamadaDeTabuleiro.Peca;
 import CamadaDeTabuleiro.Posicao;
 import CamadaDeTabuleiro.Tabuleiro;
+import Pecas.Bispo;
 import Pecas.Peao;
 import Pecas.Rei;
 import Pecas.Torre;
@@ -143,6 +144,8 @@ public class PartidaDeXadrez {
         pecaNoLugarNovo('f', 2, new Peao(tabuleiro, Cor.BRANCO));
         pecaNoLugarNovo('g', 2, new Peao(tabuleiro, Cor.BRANCO));
         pecaNoLugarNovo('h', 2, new Peao(tabuleiro, Cor.BRANCO));
+        pecaNoLugarNovo('c', 1, new Bispo(tabuleiro, Cor.BRANCO));
+        pecaNoLugarNovo('f', 1, new Bispo(tabuleiro, Cor.BRANCO));
         
 		pecaNoLugarNovo('a', 8, new Torre(tabuleiro, Cor.PRETO));
 		pecaNoLugarNovo('e', 8, new Rei(tabuleiro, Cor.PRETO));
@@ -155,6 +158,8 @@ public class PartidaDeXadrez {
         pecaNoLugarNovo('f', 7, new Peao(tabuleiro, Cor.PRETO));
         pecaNoLugarNovo('g', 7, new Peao(tabuleiro, Cor.PRETO));
         pecaNoLugarNovo('h', 7, new Peao(tabuleiro, Cor.PRETO));
+        pecaNoLugarNovo('c', 8, new Bispo(tabuleiro, Cor.PRETO));
+        pecaNoLugarNovo('f', 8, new Bispo(tabuleiro, Cor.PRETO));
 	}
 
 	private void proximoTurno() {
