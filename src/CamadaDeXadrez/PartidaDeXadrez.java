@@ -8,6 +8,7 @@ import CamadaDeTabuleiro.Peca;
 import CamadaDeTabuleiro.Posicao;
 import CamadaDeTabuleiro.Tabuleiro;
 import Pecas.Bispo;
+import Pecas.Cavalo;
 import Pecas.Peao;
 import Pecas.Rei;
 import Pecas.Torre;
@@ -134,6 +135,8 @@ public class PartidaDeXadrez {
 
 	private void inicio() {
 		pecaNoLugarNovo('a', 1, new Torre(tabuleiro, Cor.BRANCO));
+		pecaNoLugarNovo('b', 1, new Cavalo(tabuleiro, Cor.BRANCO));
+		pecaNoLugarNovo('g', 1, new Cavalo(tabuleiro, Cor.BRANCO));
 		pecaNoLugarNovo('e', 1, new Rei(tabuleiro, Cor.BRANCO));
 		pecaNoLugarNovo('h', 1, new Torre(tabuleiro, Cor.BRANCO));
         pecaNoLugarNovo('a', 2, new Peao(tabuleiro, Cor.BRANCO));
@@ -148,8 +151,10 @@ public class PartidaDeXadrez {
         pecaNoLugarNovo('f', 1, new Bispo(tabuleiro, Cor.BRANCO));
         
 		pecaNoLugarNovo('a', 8, new Torre(tabuleiro, Cor.PRETO));
+		pecaNoLugarNovo('b', 8, new Cavalo(tabuleiro, Cor.PRETO));
 		pecaNoLugarNovo('e', 8, new Rei(tabuleiro, Cor.PRETO));
 		pecaNoLugarNovo('h', 8, new Torre(tabuleiro, Cor.PRETO));
+		pecaNoLugarNovo('g', 8, new Cavalo(tabuleiro, Cor.PRETO));
 		pecaNoLugarNovo('a', 7, new Peao(tabuleiro, Cor.PRETO));
         pecaNoLugarNovo('b', 7, new Peao(tabuleiro, Cor.PRETO));
         pecaNoLugarNovo('c', 7, new Peao(tabuleiro, Cor.PRETO));
