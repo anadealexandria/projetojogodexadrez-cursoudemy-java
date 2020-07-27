@@ -47,7 +47,7 @@ public class PartidaDeXadrez {
 	public boolean getCheckMate() {
 		return checkMate;
 	}
-	
+
 	public PecaDeXadrez getEnPassantVuneravel() {
 		return enPassantVuneravel;
 	}
@@ -102,6 +102,21 @@ public class PartidaDeXadrez {
 			rook.avancarContagemMovimento();
 		}
 
+		// #Movimento especial en passant
+		if (p instanceof Peao) {
+			if (origem.getColuna() != destino.getColuna() && pecaCapturada == null) {
+				Posicao posicaoPeao;
+				if (p.getCor() == Cor.BRANCO) {
+					posicaoPeao = new Posicao(destino.getLinha() + 1, destino.getColuna());
+				} else {
+					posicaoPeao = new Posicao(destino.getLinha() - 1, destino.getColuna());
+				}
+				pecaCapturada = tabuleiro.removerPeca(posicaoPeao);
+				pecasCapturadas.add(pecaCapturada);
+				pecasNoTabuleiro.remove(pecaCapturada);
+			}
+		}
+
 		return pecaCapturada;
 
 	}
@@ -117,8 +132,8 @@ public class PartidaDeXadrez {
 			undoMove(origem, destino, capturarPeca);
 			throw new ExcecaoXadrez("Voce nao pode estar em check!");
 		}
-		
-		PecaDeXadrez pecaQMoveu = (PecaDeXadrez)tabuleiro.peca(destino);
+
+		PecaDeXadrez pecaQMoveu = (PecaDeXadrez) tabuleiro.peca(destino);
 		check = (testarCheck(oponente(jogadorAtual))) ? true : false;
 
 		if (testarCheckMate(oponente(jogadorAtual))) {
@@ -127,14 +142,14 @@ public class PartidaDeXadrez {
 			proximoTurno();
 		}
 		// #Movimento especial en passant
-		if(pecaQMoveu instanceof Peao && (destino.getLinha()==destino.getLinha()-2
-				&& (destino.getLinha()==destino.getLinha()+2))) {
-			
-			enPassantVuneravel=pecaQMoveu;
-		}else {
-			enPassantVuneravel=null;
+		if (pecaQMoveu instanceof Peao
+				&& (destino.getLinha() == origem.getLinha() - 2 || (destino.getLinha() == origem.getLinha() + 2))) {
+
+			enPassantVuneravel = pecaQMoveu;
+		} else {
+			enPassantVuneravel = null;
 		}
-		
+
 		return (PecaDeXadrez) capturarPeca;
 	}
 
@@ -163,7 +178,19 @@ public class PartidaDeXadrez {
 			tabuleiro.lugarPeca(rook, origemT);
 			rook.recuarContagemMovimento();
 		}
-
+		// #Movimento especial en passant
+		if (p instanceof Peao) {
+			if (origem.getColuna() != destino.getColuna() && pecaCapturada == enPassantVuneravel) {
+				PecaDeXadrez peao = (PecaDeXadrez)tabuleiro.removerPeca(destino);
+				Posicao posicaoPeao;
+				if (p.getCor() == Cor.BRANCO) {
+					posicaoPeao = new Posicao(3, destino.getColuna());
+				} else {
+					posicaoPeao = new Posicao(4 , destino.getColuna());
+				}
+				tabuleiro.lugarPeca(peao, posicaoPeao);
+			}
+		}
 	}
 
 	private void validarPosicaoDeOrigem(Posicao posicao) {
