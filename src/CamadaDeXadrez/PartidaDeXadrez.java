@@ -1,6 +1,5 @@
 package CamadaDeXadrez;
 
-import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -85,7 +84,7 @@ public class PartidaDeXadrez {
 			throw new IllegalStateException("Nao ha peca para ser promovida");
 		}
 		if(!type.equals("B") && !type.equals("C") && !type.equals("T") && !type.equals("Q")) {
-			throw new InvalidParameterException("Peca invalida para promocao");
+			return promocao;
 		}
 		
 		Posicao pos = promocao.getPosicaoXadrez().transformarPosicaoComum();

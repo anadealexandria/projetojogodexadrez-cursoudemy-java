@@ -1,4 +1,5 @@
 package Execucoes;
+
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
@@ -13,44 +14,48 @@ public class Principal {
 
 	public static void main(String[] args) {
 		Scanner entrada = new Scanner(System.in);
-		
+
 		PartidaDeXadrez partidaDeXadrez = new PartidaDeXadrez();
 		List<PecaDeXadrez> capturadas = new ArrayList<>();
-		
+
 		while (!partidaDeXadrez.getCheckMate()) {
-			
+
 			try {
-			
-			UseInterface.limparTela();
-			UseInterface.imprimirPartida(partidaDeXadrez, capturadas);
-			System.out.println();
-			System.out.print("Origem: ");
-			PosicaoXadrez origem = UseInterface.lerPosicaoXadrez(entrada);
-			
-			boolean[][] movimentosPossiveis = partidaDeXadrez.movimentosPossiveis(origem);
-			UseInterface.limparTela();
-			UseInterface.imprimirTabuleiro(partidaDeXadrez.getPeca(), movimentosPossiveis);
-			System.out.println();
-			System.out.println("Destino: ");
-			PosicaoXadrez destino = UseInterface.lerPosicaoXadrez(entrada);	
-			
-			PecaDeXadrez pecaCapturada = partidaDeXadrez.executarMovimento(origem, destino);
-			
-			if(pecaCapturada != null) {
-				capturadas.add(pecaCapturada);
+
+				UseInterface.limparTela();
+				UseInterface.imprimirPartida(partidaDeXadrez, capturadas);
+				System.out.println();
+				System.out.print("Origem: ");
+				PosicaoXadrez origem = UseInterface.lerPosicaoXadrez(entrada);
+
+				boolean[][] movimentosPossiveis = partidaDeXadrez.movimentosPossiveis(origem);
+				UseInterface.limparTela();
+				UseInterface.imprimirTabuleiro(partidaDeXadrez.getPeca(), movimentosPossiveis);
+				System.out.println();
+				System.out.println("Destino: ");
+				PosicaoXadrez destino = UseInterface.lerPosicaoXadrez(entrada);
+
+				PecaDeXadrez pecaCapturada = partidaDeXadrez.executarMovimento(origem, destino);
+
+				if (pecaCapturada != null) {
+					capturadas.add(pecaCapturada);
+				}
+				if (partidaDeXadrez.getPromocao() != null) {
+					System.out.print("Digite a peca para a promocao (B/Q/T/C):");
+					String type = entrada.nextLine().toUpperCase();
+
+					while (!type.equals("B") && !type.equals("C") && !type.equals("T") && !type.equals("Q")) {
+						System.out.print("Valor invalido! Digite a peca para a promocao (B/Q/T/C):");
+						type = entrada.nextLine().toUpperCase();
+					}
+					partidaDeXadrez.substituirPecaPromovida(type);
+				}
 			}
-			if(partidaDeXadrez.getPromocao() != null) {
-				System.out.print("Digite a peca para a promocao (B/Q/T/C):");
-				String type = entrada.nextLine();
-				partidaDeXadrez.substituirPecaPromovida(type);
-			}
-			}
-			
-			catch(ExcecaoXadrez e) {
+
+			catch (ExcecaoXadrez e) {
 				System.out.println(e.getMessage());
 				entrada.nextLine();
-			}
-			catch(InputMismatchException e) {
+			} catch (InputMismatchException e) {
 				System.out.println(e.getMessage());
 				entrada.nextLine();
 			}
@@ -58,6 +63,6 @@ public class Principal {
 		UseInterface.limparTela();
 		UseInterface.imprimirPartida(partidaDeXadrez, capturadas);
 
-	} 
+	}
 
 }
