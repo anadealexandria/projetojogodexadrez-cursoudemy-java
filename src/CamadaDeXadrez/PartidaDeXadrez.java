@@ -1,5 +1,6 @@
 package CamadaDeXadrez;
 
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,6 +23,7 @@ public class PartidaDeXadrez {
 	private boolean check;
 	private boolean checkMate;
 	private PecaDeXadrez enPassantVuneravel;
+	private PecaDeXadrez promocao;
 	private List<Peca> pecasNoTabuleiro = new ArrayList<>();
 	private List<Peca> pecasCapturadas = new ArrayList<>();
 
@@ -61,6 +63,10 @@ public class PartidaDeXadrez {
 		}
 		return matriz;
 	}
+	
+	public PecaDeXadrez getPromocao() {
+		return promocao;
+	}
 
 	public boolean[][] movimentosPossiveis(PosicaoXadrez posicaoOrigem) {
 		Posicao posicao = posicaoOrigem.transformarPosicaoComum();
@@ -72,6 +78,33 @@ public class PartidaDeXadrez {
 		if (!tabuleiro.peca(origem).possivelMovimento(destino)) {
 			throw new ExcecaoXadrez("A peca nao pode se mover para a posicao de destino!");
 		}
+	}
+	
+	public PecaDeXadrez substituirPecaPromovida(String type) {
+		if(promocao ==null) {
+			throw new IllegalStateException("Nao ha peca para ser promovida");
+		}
+		if(!type.equals("B") && !type.equals("C") && !type.equals("T") && !type.equals("Q")) {
+			throw new InvalidParameterException("Peca invalida para promocao");
+		}
+		
+		Posicao pos = promocao.getPosicaoXadrez().transformarPosicaoComum();
+		Peca p = tabuleiro.removerPeca(pos);
+		pecasNoTabuleiro.remove(p);
+		
+		PecaDeXadrez pecaNova = pecaNova(type, promocao.getCor());
+		tabuleiro.lugarPeca(pecaNova, pos);
+		pecasNoTabuleiro.add(pecaNova);
+		
+		return pecaNova;
+		
+	}
+	
+	private PecaDeXadrez pecaNova(String type, Cor cor) {
+		if (type.equals("B")) return new Bispo(tabuleiro, cor);
+		if (type.equals("Q")) return new Queen(tabuleiro, cor);
+		if (type.equals("C")) return new Cavalo(tabuleiro, cor);
+		return new Torre(tabuleiro, cor);
 	}
 
 	private Peca makeMove(Posicao origem, Posicao destino) {
@@ -134,6 +167,15 @@ public class PartidaDeXadrez {
 		}
 
 		PecaDeXadrez pecaQMoveu = (PecaDeXadrez) tabuleiro.peca(destino);
+		
+		//Movimento Especial Promoção
+		promocao=null;
+		if(pecaQMoveu instanceof Peao) {
+			if(pecaQMoveu.getCor()==Cor.BRANCO && destino.getLinha()==0 || pecaQMoveu.getCor()==Cor.PRETO && destino.getLinha()==7) {
+				promocao = (PecaDeXadrez)tabuleiro.peca(destino);
+				promocao = substituirPecaPromovida("Q");
+			}
+		}
 		check = (testarCheck(oponente(jogadorAtual))) ? true : false;
 
 		if (testarCheckMate(oponente(jogadorAtual))) {
